@@ -36,23 +36,25 @@ function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch(console.error);
-  }, []);
+    if (isLoggedIn){
+      api
+        .getUserInfo()
+        .then((res) => {
+          setCurrentUser(res);
+          closeAllPopups();
+        })
+        .catch(console.error)};
+    }, [isLoggedIn]);
 
   React.useEffect(() => {
-    api
-      .getCards()
-      .then((card) => {
-        setCards([...card]);
-      })
-      .catch(console.error);
-  }, []);
+    if (isLoggedIn){
+      api
+        .getCards()
+        .then((card) => {
+          setCards([...card]);
+        })
+        .catch(console.error)};
+    }, [isLoggedIn]);
 
   function handleEditAvatarClick() {
     setEditAvatarPopup(true);
@@ -103,7 +105,6 @@ function App() {
   function handleCardLike(card) {
     // Проверка наличия лайка на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
     // Получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, isLiked)
@@ -182,7 +183,6 @@ function App() {
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
-          localStorage.setItem("jwt", res.token);
           setMainIsOpened(true);
           setEmail(email);
           navigate("/", { replace: true });
@@ -197,33 +197,31 @@ function App() {
   }
 
   function checkActiveToken() {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      auth
-        .checkToken(jwt)
-        .then((res) => {
-          if (res) {
-            setIsLoggedIn(true);
-            setMainIsOpened(true);
-            setEmail(res.data.email);
-            navigate("/", { replace: true });
-          }
-        })
-        .catch((err) => {
+    auth
+      .checkToken()
+      .then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          setMainIsOpened(true);
+          setEmail(res.email);
+          navigate("/", { replace: true });
+        } else {
           setIsLoggedIn(false);
-          console.log(err);
-        });
+        }
+        })
+      .catch((err) => {
+        setIsLoggedIn(false);
+        console.log(err);
+      });
     }
-  }
-
   
   React.useEffect(() => {
     checkActiveToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleSignOut() {
     setIsLoggedIn(false);
-    localStorage.removeItem("jwt");
     setEmail("");
     setMainIsOpened(false);
     navigate("/signin", { replace: true });

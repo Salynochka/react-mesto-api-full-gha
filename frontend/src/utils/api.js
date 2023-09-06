@@ -8,6 +8,7 @@ class Api {
   async getCards() {
     const res = await fetch(`${this._mainUrl}/cards`, {
       headers: this._headers,
+      credentials: "include",
     });
     return this._checkStatus(res);
   }
@@ -16,6 +17,7 @@ class Api {
   async createNewCard(data) {
     const res = await fetch(`${this._mainUrl}/cards`, {
       method: "POST",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -30,6 +32,7 @@ class Api {
     const res = await fetch(`${this._mainUrl}/cards/${cardId}`, {
       headers: this._headers,
       method: "DELETE",
+      credentials: "include",
     });
     return this._checkStatus(res);
   }
@@ -38,6 +41,7 @@ class Api {
   async getUserInfo() {
     const res = await fetch(`${this._mainUrl}/users/me`, {
       headers: this._headers,
+      credentials: "include",
     });
     return this._checkStatus(res);
   }
@@ -46,6 +50,7 @@ class Api {
   async editProfile(data) {
     const res = await fetch(`${this._mainUrl}/users/me`, {
       method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -59,6 +64,7 @@ class Api {
   async editAvatarPhoto(data) {
     const res = await fetch(`${this._mainUrl}/users/me/avatar`, {
       method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
@@ -71,6 +77,7 @@ class Api {
   async addLike(cardId) {
     const res = await fetch(`${this._mainUrl}/cards/${cardId}/likes`, {
       method: "PUT",
+      credentials: "include",
       headers: this._headers,
     });
     return this._checkStatus(res);
@@ -80,6 +87,7 @@ class Api {
   async deleteLike(cardId) {
     const res = await fetch(`${this._mainUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
+      credentials: "include",
       headers: this._headers,
     });
     return this._checkStatus(res);
@@ -103,7 +111,7 @@ class Api {
 }
 
 export const api = new Api({
-  mainUrl: "https://mesto.nomoreparties.co/v1/cohort-65",
+  mainUrl: "http://localhost:4000",  // mesto.nomoreparties.co/v1/cohort-65
   headers: {
     authorization: "9783f066-fc5b-47ba-8b84-b37b6039aee0",
     "Content-Type": "application/json",

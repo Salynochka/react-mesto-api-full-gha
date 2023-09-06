@@ -52,12 +52,12 @@ function Main(props) {
               onCardClick={props.onCardClick}
               onCardLike={props.onCardLike}
               onCardDelete={props.onCardDelete}
-              owner={card.owner}
-              link={card.link}
-              name={card.name}
-              likes={card.likes}
+              // owner={card.owner}
+              // link={card.link}
+              // name={card.name}
+              // likes={card.likes}
               card={card}
-              cardId={card._id}
+              // cardId={card._id}
               key={card._id}
             />
           ))}

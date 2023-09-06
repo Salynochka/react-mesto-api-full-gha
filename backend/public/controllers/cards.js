@@ -40,7 +40,7 @@ module.exports.deleteCard = (req, res, next) => {
       } else {
         Card.deleteOne(card)
           .then((deletedCard) => {
-            res.status(200).send({ data: deletedCard });
+            res.status(200).send(deletedCard);
           })
           .catch(next);
       }
@@ -60,13 +60,8 @@ module.exports.addLike = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .populate(['owner', 'likes'])
-    .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Запрашиваемая карточка не найдена');
-      }
-      return res.send({ data: card });
-    })
+    .orFail(new NotFoundError('Запрашиваемая карточка не найдена'))
+    .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new IncorrectDataError('Произошла ошибка'));
@@ -84,13 +79,8 @@ module.exports.deleteLike = (req, res, next) => {
     { $pull: { likes: req.user._id } }, // убрать _id из массива
     { new: true },
   )
-    .then((card) => {
-      if (card) {
-        res.send({ data: card });
-        return;
-      }
-      throw new NotFoundError('Запрашиваемая карточка не найдена');
-    })
+    .orFail(new NotFoundError('Запрашиваемая карточка не найдена'))
+    .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new IncorrectDataError('Произошла ошибка'));

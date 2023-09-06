@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const cookieParser = require('./node_modules/cookie-parser');
 const routerCards = require('./public/routes/cards');
 const routerUsers = require('./public/routes/users');
@@ -11,10 +12,14 @@ const { validateRegister, validateLogin } = require('./public/middlewares/valida
 const errorHandler = require('./public/middlewares/error-handler');
 const NotFoundError = require('./public/errors/not-found-error');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
 
 const app = express();
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
