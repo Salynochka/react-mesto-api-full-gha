@@ -170,6 +170,7 @@ function App() {
         console.log(err);
       })
       .finally(() => {
+        setIsSuccessful(true);
         setInfoToolTipOpen(true);
       });
   }
