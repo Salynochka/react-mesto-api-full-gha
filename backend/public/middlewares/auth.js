@@ -1,6 +1,8 @@
 const jwt = require('../../node_modules/jsonwebtoken');
 const NotAuthError = require('../errors/not-auth-error');
 
+const { SECRET_KEY = 'SomeSecretKey123&' } = process.env;
+
 module.exports.auth = (req, res, next) => {
   const { token } = req.cookies;
 
@@ -10,7 +12,7 @@ module.exports.auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, 'SomeSecretKey123&'); // попытаемся верифицировать токен
+    payload = jwt.verify(token, SECRET_KEY); // попытаемся верифицировать токен
   } catch (err) {
     next(new NotAuthError('Необходима авторизация')); // отправим ошибку, если не получилось
   }
