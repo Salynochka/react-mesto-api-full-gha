@@ -23,13 +23,8 @@ module.exports.login = (req, res, next) => {
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .then((user) => {
-      if (user) {
-        res.send(user);
-        return;
-      }
-      throw new NotFoundError('Запрашиваемый пользователь не найден');
-    })
+    .orFail(new NotFoundError('Запрашиваемый пользователь не найден'))
+    .then((user) => { res.send(user); })
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new IncorrectDataError('Произошла ошибка'));
