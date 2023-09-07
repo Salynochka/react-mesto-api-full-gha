@@ -111,7 +111,7 @@ class Api {
 }
 
 export const api = new Api({
-  mainUrl: "http://localhost:4000",  // mesto.nomoreparties.co/v1/cohort-65
+  mainUrl: "https://api.travel.network.nomoredomainsicu.ru",  // mesto.nomoreparties.co/v1/cohort-65
   headers: {
     authorization: "9783f066-fc5b-47ba-8b84-b37b6039aee0",
     "Content-Type": "application/json",
