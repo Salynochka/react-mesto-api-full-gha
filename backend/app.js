@@ -15,7 +15,7 @@ const { validateRegister, validateLogin } = require('./public/middlewares/valida
 const errorHandler = require('./public/middlewares/error-handler');
 const NotFoundError = require('./public/errors/not-found-error');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
 const app = express();
 
 app.use(cors({
