@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const cors = require('cors');
 const cookieParser = require('./node_modules/cookie-parser');
+const { requestLogger, errorLogger } = require('./public/middlewares/logger');
 const routerCards = require('./public/routes/cards');
 const routerUsers = require('./public/routes/users');
 const { login, createUser } = require('./public/controllers/users');
@@ -12,7 +13,7 @@ const { validateRegister, validateLogin } = require('./public/middlewares/valida
 const errorHandler = require('./public/middlewares/error-handler');
 const NotFoundError = require('./public/errors/not-found-error');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
 
 const app = express();
 
@@ -30,6 +31,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   console.log('connected to db');
 });
 
+app.use(requestLogger);
+
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateRegister, createUser);
 
@@ -41,6 +44,8 @@ app.use('/users', routerUsers);
 app.use('*', auth, (req, res, next) => {
   next(new NotFoundError('Неправильный путь'));
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use(errorHandler);
