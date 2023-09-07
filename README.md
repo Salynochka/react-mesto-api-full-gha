@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.73.90
 
-Frontend https://...
+Frontend https://travel.network.nomoredomainsicu.ru
 
-Backend https://...
+Backend https://api.travel.network.nomoredomainsicu.ru
