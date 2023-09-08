@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.73.90
+IP 158.160.73.90
 
 Frontend https://travel.network.nomoredomainsicu.ru
 
