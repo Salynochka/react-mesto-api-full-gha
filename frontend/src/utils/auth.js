@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.travel.network.nomoredomainsicu.ru"; // auth.nomoreparties.co
+export const BASE_URL = "http://api.travel.network.nomoredomainsicu.ru"; // auth.nomoreparties.co
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",

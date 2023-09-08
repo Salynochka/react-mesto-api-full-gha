@@ -19,7 +19,7 @@ const { PORT = 4000 } = process.env;
 const app = express();
 
 app.use(cors({
-  origin: 'https://travel.network.nomoredomainsicu.ru',
+  origin: 'http://travel.network.nomoredomainsicu.ru',
   credentials: true,
 }));
 
