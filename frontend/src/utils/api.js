@@ -111,5 +111,5 @@ class Api {
 }
 
 export const api = new Api({
-  mainUrl: "http://api.travel.network.nomoredomainsicu.ru",  // mesto.nomoreparties.co/v1/cohort-65
+  mainUrl: "https://api.travel.network.nomoredomainsicu.ru",  // mesto.nomoreparties.co/v1/cohort-65
 });
