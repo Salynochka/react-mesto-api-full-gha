@@ -143,6 +143,7 @@ function App() {
       .catch((err) => console.error(`Ошибка: ${err}`));
   }
 
+  // Создание карточки
   function handleSubmitAddPlace(data) {
     api
       .createNewCard(data)
