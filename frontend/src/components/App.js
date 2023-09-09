@@ -102,6 +102,7 @@ function App() {
     }
   }, [isOpen]);
 
+  // Добавление/удаление лайка
   function handleCardLike(card) {
     // Проверка наличия лайка на этой карточке
     const isLiked = card.likes.some((i) => i === currentUser._id);
@@ -116,6 +117,7 @@ function App() {
       .catch((err) => console.error(`Ошибка: ${err}`));
   }
 
+  // Удаление карточки
   function handleCardDelete(card) {
     api
       .removeCard(card._id)
@@ -123,6 +125,7 @@ function App() {
       .catch((err) => console.error(`Ошибка: ${err}`));
   }
 
+  // Обновление информации профиля
   function handleUpdateUser(data) {
     api
       .editProfile(data)
@@ -133,6 +136,7 @@ function App() {
       .catch((err) => console.error(`Ошибка: ${err}`));
   }
 
+  // Обновление аватара
   function handleUpdateAvatar(avatar) {
     api
       .editAvatarPhoto(avatar)
